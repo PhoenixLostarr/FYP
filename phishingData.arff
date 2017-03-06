@@ -1,0 +1,610 @@
+@RELATION websites
+
+@ATTRIBUTE urlsimilarity NUMERIC
+@ATTRIBUTE redirection   {true,false}
+@ATTRIBUTE spellingErrors  NUMERIC
+@ATTRIBUTE lookandfeel {identical,veryclose,similar,different,unique}
+@ATTRIBUTE offers {yes,no}
+@ATTRIBUTE phishing {yes,no}
+%TODO could replace simple boolean with nominal measure
+
+@DATA
+4,false,10,identical,no,no %http://www.xkcd.com/
+3,true,1,identical,no,no %http://www.php.com/
+12,false,7,different,no,no %http://www.mspaintadventures.com/?p=001901&s=6
+11,false,1,similar,no,no %http://threewordphrase.com/
+4,false,0,similar,no,no %http://oglaf.com/
+8,false,2,similar,no,no %http://www.jspowerhour.com/
+7,false,40,similar,no,no %http://pbfcomics.com/
+5,false,27,similar,no,no %http://www.qwantz.com/
+7,false,0,similar,no,no %http://buttersafe.com/
+14,false,4,different,no,no %http://www.buttercupfestival.com/
+8,false,5,similar,no,no %http://www.smbc-comics.com/
+8,false,43,?,?,no %TODO REMOVE CSS FILES FROM CRAWLER
+7,false,2,veryclose,no,no %http://mspaforums.com/
+8,true,1,similar,no,no %http://whatpumpkin.com/home.php
+5,false,41,identical,no,no %https://homestuck.bandcamp.com/album/homestuck-vol-10
+0,false,11,identical,no,no %https://www.youtube.com/watch?v=PGk7CEA-O_s
+8,false,35,similar,no,no %http://www.paradoxspace.com/
+5,false,3,identical,no,no %https://www.patreon.com/abbyhoward
+8,false,5,identical,no,no %https://soundcloud.com/abby-h-howard
+9,false,0,unique,no,no %http://www.terror-town.com/
+9,false,0,similar,no,no %http://www.last-halloween.com/posts/latest
+11,false,18,similar,no,no %http://www.wastedtalent.ca/
+9,false,70,similar,no,no %http://www.dumbingofage.com/
+10,false,10,similar,no,no %http://www.gunnerkrigg.com/
+7,false,6,different,no,no %http://beefpaper.com/
+7,false,3,different,no,no %http://www.alicegrove.com/
+9,false,26,similar,no,no %http://www.harkavagrant.com/
+15,false,18,similar,no,no %http://somethingpositive.net/
+9,false,6,similar,no,no %http://www.johnnywander.com/
+9,false,2,similar,no,no %http://www.yourwildcity.com/
+7,false,2,veryclose,no,no %http://redprairiepress.bigcartel.com/
+18,false,1,different,no,no %http://www.heyneighborproductions.com/
+7,false,20,unique,no,no %http://www.fartparty.org/
+7,false,2,unique,no,no %http://danreitz.com/
+11,false,1,unique,no,no %http://www.jeffreymarini.com/
+9,false,14,similar,no,no %http://www.robertpopper.com/
+11,false,0,different,no,no %http://www.awesomebrothers.com/
+6,false,2,unique,no,no %http://www.cheston.com/
+8,false,30,unique,no,no %http://www.danlanepain.com/
+9,false,11,similar,no,no %http://www.scarygoround.com/
+9,false,3,similar,no,no %http://www.gunshowcomic.com/
+4,false,14,similar,no,no %http://www.achewood.com/
+11,false,12,unique,no,no %http://www.dieselsweeties.com/
+8,false,0,unique,no,no %http://www.kiwisbybeat.com/great.html
+7,false,16,similar,no,no %http://www.octopuspie.com/
+8,false,16,identical,no,no %http://dinosaurcomics.livejournal.com/
+12,false,181,similar,no,no %http://www.firmanproductions.com/
+9,false,6,unique,no,no %http://www.explodingdog.com/
+10,false,12,similar,no,no %http://www.bohemiandrive.com/comics/npwil.html
+14,false,7,different,no,no %http://www.worldcommunitygrid.org/team/viewTeamInfo.do?teamId=412W2GKRLR1
+5,false,2,similar,no,no %http://www.boltcity.com/copper/
+8,false,3,similar,no,no %http://www.elsiehooper.com/
+14,false,24,similar,no,no %http://loveamongthelampreys.com/
+6,false,34,similar,no,no %http://www.joelrust.com/
+10,false,47,different,no,no %http://www.geekstudies.org/
+7,false,19,unique,no,no %http://www.carcanet.co.uk/cgi-bin/indexer?product=9781784100377
+7,false,156,identical,no,no %http://cereales.lapin.org/
+6,false,44,different,no,no %http://www.marecomic.com/comic/intro-page-1/?r=smbc
+6,false,22,veryclose,no,no %http://hivemill.com/products/smbc-print-pages?podurl=http%3A%2F%2Fwww.smbc-comics.com%2Findex.php%3Fid%3D4325
+10,false,148,similar,no,no %http://www.theweinerworks.com/
+9,false,15,similar,no,no %http://www.weinersmith.com/
+13,false,42,similar,no,no %http://www.weeklyweinersmith.com/
+9,false,90,identical,no,no %http://www.thehiveworks.com/
+16,true,12,different,no,no %http://www.jeffrubinjeffrubinshow.com./
+8,true,12,different,no,no %https://www.hugedomains.com/domain_profile.cfm?d=tragi-comix&e=com
+8,false,19,unique,no,no %http://www.welovefine.com/homestuck-69/
+4,false,86,?,?,no %TODO REMOVE CSS FILES
+5,false,3,unique,no,no %http://www.hiveswap.com/
+3,false,27,identical,no,no %https://www.google.co.uk/intl/en-GB/policies/privacy/
+9,false,12,similar,no,no %http://www.gastrophobia.com/
+0,false,5,identical,no,no %https://fonts.googleapis.com/css?family=Lato%3A400%2C100%2C100italic%2C300%2C300italic%2C400italic%2C500%2C700%2C700italic%2C900%2C900italic
+13,false,60,unique,no,no %http://www.enable-javascript.com/
+9,false,8,similar,no,no %http://scaredyet.chainsawsuit.com/
+8,false,18,different,no,no %http://feeds2.feedburner.com/WastedTalentRss
+7,false,0,similar,no,no %http://www.crfh.net/
+10,false,12,different,yes,no %http://www.comicchameleon.com/
+7,false,61,different,no,no %http://www.sorcery101.net/
+12,false,0,different,no,no %http://www.girlgeniusonline.com/
+8,false,6,similar,no,no %http://www.comic-con.org/
+6,false,44,different,no,no %http://www.itswalky.com/
+15,false,4,veryclose,no,no %http://www.vintagephoenixcomics.com/
+10,false,12,different,no,no %http://www.sheldoncomics.com/
+8,false,0,unique,no,no %http://www.stumbleupon.com/submit?title=Schooled&url=http%3A%2F%2Fwww.dumbingofage.com%2F2016%2Fcomic%2Fbook-7%2F01-glower-vacuum%2Fschooled%2F
+8,false,73,different,no,no %http://www.shortpacked.com/
+7,false,0,?,no,no %http://www.templaraz.com/
+7,false,32,identical,yes,no %http://itswalky.deviantart.com/
+7,false,17,veryclose,no,no %http://www.melonpool.com/
+7,false,14,different,no,no %http://www.unshelved.com/
+12,false,82,veryclose,no,no %http://www.bringbackroomies.com/comic/collegeho1/
+15,false,14,veryclose,no,no %http://www.girlswithslingshots.com/
+11,false,15,veryclose,no,no %http://www.intrepidgirlbot.com/
+12,false,14,veryclose,no,no %http://www.schlockmercenary.com/
+9,false,8,different,no,no %http://www.powernapcomic.com/
+9,false,18,similar,no,no %http://www.joyceandwalky.com/
+9,false,10,similar,no,no %http://maximumble.thebookofbiff.com/
+9,false,0,different,no,no %http://www.monster-pulse.com/
+9,false,14,similar,no,no %http://multiplexcomic.com/
+7,false,13,veryclose,no,no %http://www.twolumps.net/
+6,false,2,different,no,no %http://orneryboy.com/
+7,false,3,similar,no,no %http://deadwinter.cc/
+8,false,18,veryclose,no,no %http://skullpanda.com/
+12,false,0,similar,no,no %http://dawnoftimecomics.com/
+10,false,10,different,no,no %http://cliquerefresh.com/
+6,false,50,identical,no,no %http://gunnerkrigg.proboards.com/
+6,false,42,different,no,no %http://natashaneadventures.blogspot.co.uk/
+7,false,2,identical,no,no %https://www.instagram.com/jr_tyner/
+11,false,7,different,no,no %http://tizzystitchbird.com/
+6,false,7,different,no,no %http://www.webtoons.com/en/challenge/beefpaper/list?title_no=40630
+9,false,5,similar,no,no %http://www.lindemannade.com/
+8,false,4,different,no,no %http://sketchyantics.com/
+6,false,14,unique,no,no %http://kinokofry.com/
+12,false,0,similar,no,no %http://philintheblanks.com/
+7,false,0,unique,no,no %http://www.neilrough.com/
+9,false,0,unique,no,no %http://www.bottomlesspop.com/
+17,false,0,unique,yes,no %http://www.picturesforsadchildren.com/
+7,false,18,similar,no,no %http://jessfink.com/kwe/
+7,false,0,identical,no,no %http://www.catrackham.com/
+10,false,3,similar,no,no %http://www.dawnandmargie.com/
+9,false,34,different,no,no %http://freakleap.co.uk/comics/
+6,false,4,different,no,no %http://dharbin.com/
+11,false,13,veryclose,no,no %http://www.comingupforair.net/
+7,false,13,veryclose,no,no %http://www.pyramidcar.com/
+4,false,2,similar,no,no %http://members.shaw.ca/legendscomics/
+10,false,3,different,no,no %http://kafkaskoffee.com/wp/
+10,false,4,unique,no,no %http://shortstackapps.com/
+12,false,2,unique,no,no %http://www.strangeadventures.com/
+12,false,9,veryclose,no,no %http://eddirt.frozenreality.co.uk/
+8,false,7,similar,no,no %http://www.superstupor.com/sust11262007.shtml
+18,false,4,similar,no,no %http://www.doesnotplaywellwithothers.com/
+12,false,19,similar,no,no %http://thedevilspanties.com/
+13,false,2,similar,no,no %http://www.rhymes-with-witch.com/rww10302015c.shtml
+6,false,0,unique,no,no %http://headtrip.keenspot.com/
+4,false,9,identical,no,no %http://positive.myshopify.com/
+8,false,2,unique,no,no %http://www.studiofoglio.com/
+7,false,2,unique,no,no %http://www.teseracte.com/
+8,false,5,veryclose,no,no %http://shop.blindferret.com/collections/something-positive
+8,false,643,similar,no,no %http://www.angryflower.com/
+12,false,10,unique,no,no %http://www.newyorkcomiccon.com/
+9,false,4,identical,yes,no %http://2016.alaannual.org/
+11,false,45,identical,no,no %http://friedpiecomics.com/post/144573174733/floor-plan-fried-pie-con-2nd-charles
+12,false,11,identical,no,no %http://www.emeraldcitycomicon.com/
+10,false,3,identical,no,no %http://bostoncomiccon.com/
+7,false,10,unique,no,no %https://tishonator.com/product/fart
+7,false,23,unique,no,no %https://tickets.edfringe.com/whats-on/baby-wants-candy-the-completely-improvised-full-band-musical
+14,false,3,similar,no,no %http://www.yourloveourmusical.com/
+10,false,0,similar,no,no %http://www.sensitivehearts.com/
+7,false,6,identical,no,no %http://www.sparetheair.com/health.cfm?page=healthoverall
+14,false,14,different,no,no %http://www.housecleaningmadison.com/
+6,false,4,identical,no,no %https://www.airnow.gov/index.cfm?action=aqikids.air
+12,false,1,?,?,no %http://www.cmi-mortgageinfo.com/
+7,false,6,unique,no,no %http://www.permatron.com/washable
+7,false,7,similar,no,no %http://gmpg.org/xfn/11
+8,false,16,unique,no,no %http://www.whompcomic.com/
+5,false,1,unique,no,no %https://tinyletter.com/scarygoround
+7,false,4,veryclose,no,no %http://www.goshlondon.com/
+9,false,13,identical,no,no %http://tumblr.horse/post/153403057578/hello-its-the-2016-holiday-ordering-deadlines
+4,false,0,similar,no,no %http://hiagb.com/
+7,false,0,different,no,no %http://bobbins.horse/
+10,false,1,unique,no,no %http://destroyhistory.com/
+5,false,5,similar,no,no %http://www.marycagle.com/
+7,false,0,different,no,no %http://robertcop.com/
+5,false,2,similar,no,no %http://www.boasas.com/
+11,false,6,similar,no,no %http://rutabagacomic.com/
+9,false,3,different,no,no %http://untroubled.org/
+11,false,0,unique,yes,yes %http://www.hunique.stream/?func=u
+11,false,0,unique,yes,yes %http://www.intenttwo.stream/?func=u
+15,true,1,identical,no,yes %http://bridgecloudhosts.us/
+14,true,0,?,?,yes % 404 NO DATA AVAILABLE
+11,true,3,unique,yes,yes %http://neuropathyfix.org/?aff_id=13715&subid
+7,true,0,unique,yes,yes %http://armorei.top/
+12,true,2,identical,yes,yes %http://tinnitus-reversed.com/?aff_id=13715&subid
+8,false,4,similar,no,yes %http://www.laterto.bid/l/lt33V40796OQ1979OV/2014D12440QV252661FQ903F63317587KE2917692731
+9,false,3,different,no,no %http://untroubled.org/
+10,false,0,similar,no,yes %http://www.requents.bid/unsAR40799F2026CO/2061WS12525J253817K903LA63317587C839045209
+14,true,0,identical,no,yes %http://www.switzerlandyellow.top/
+15,true,2,identical,yes,yes %http://www.hearinglossreversed.com/report?aff_id=230&subid
+7,true,0,unique,yes,yes %http://armorei.top/
+20,true,1,veryclose,yes,yes %http://theleanbellybreakthrough.com/?aff_id=5243&subid
+8,true,0,different,yes,yes %http://watercruise.net/
+9,false,3,different,no,yes %http://untroubled.org/
+15,true,1,identical,no,yes %http://bridgecloudhosts.us/
+11,true,0,identical,no,yes %http://www.glosslurayhost.com/
+7,true,0,unique,yes,yes %http://armorei.top/
+8,true,0,unique,no,yes %http://watercruise.net/
+13,true,3,identical,no,yes %http://www.shedblueprints.top/
+3,false,0,identical,no,yes %http://beacon2.sndxar.com/OptOut.aspx?IDC&IDCust=3D
+9,false,3,different,no,yes %http://untroubled.org/
+12,false,4,identical,no,yes %http://www.theoreting.stream/l/lt9E40849SI2142DS/2177EU12784OA256671NM903FJ63317587C2917692761
+12,false,4,identical,no,yes %http://www.syllabour.stream/l/lt33D40861O1980RE/2015B12442YY252665U903EX63317587RF839045229
+12,false,4,identical,no,yes %http://www.protocond.stream/l/lt1LB40862X2157OD/2193E12828Y257253KD903VF63317587A839045230
+15,true,1,identical,no,yes %http://bridgecloudhosts.us/
+11,true,0,identical,no,yes %http://www.glosslurayhost.com/
+7,true,0,unique,yes,yes %http://www.beardblast.com/197d12c10afd0e9800/ncms6-1102-03t
+7,true,0,unique,yes,yes %http://armorei.top/
+14,true,4,identical,yes,yes %http://great-brain-secret.com/?aff_id=13715&subid
+14,true,3,identical,yes,yes %http://www.papertoweltruth.top/
+11,true,3,identical,yes,yes %http://neuropathyfix.org/?aff_id=13715&subid
+14,true,3,identical,no,yes %http://www.landscapeyourhome.top/
+12,true,3,different,yes,yes %http://www.cleanupclutter.top/
+5,false,28,unique,yes,yes % http://track.mdrctr.com/track/pre-unsubscribe/category/EMAIL/empId/47659/subId/254/listId/2/conId/517806/signature/f72aeaee48958a993c25ad3c1845e0a7/conEmail/bruce@untroubled.org/conMovil/-
+5,false,11,unique,yes,yes % http://track.mdrctr.com/track/unsubscribe/empId/47659/subId/256/listId/2/conId/517806/conEmail/bruce@untroubled.org/type/8/motivo/list-unsubscribe/signature/99186fe44774d94c01c920f958fd7759
+5,false,28,unique,yes,yes % http://track.mdrctr.com/track/pre-unsubscribe/category/EMAIL/empId/47659/subId/256/listId/2/conId/517806/signature/99186fe44774d94c01c920f958fd7759/conEmail/bruce@untroubled.org/conMovil/-
+11,false,0,identical,yes,yes % http://www.iniciacion.stream/?func=u
+9,false,3,identical,no,yes % http://untroubled.org/
+13,false,0,identical,yes,yes % http://www.jardinesaqui.stream/?func=u
+7,false,11,similar,no,yes % http://mail.mmv32879.com/track/unsubscribe/empId/47659/subId/273/listId/2/conId/517806/conEmail/bruce@untroubled.org/type/8/motivo/list-unsubscribe/signature/d89e9b8cffc93bd68cbb6c3c5ccef3b8
+11,false,0,identical,yes,yes % http://www.impactado.stream/?func=u
+11,false,0,identical,yes,yes % http://www.lambadas.stream/?func=u
+10,false,0,identical,yes,yes % http://www.lamparas.stream/?func=u
+12,false,0,identical,yes,yes % http://www.marsupiales.stream/?func=u
+14,false,0,veryclose,yes,yes % http://www.palangrismo.stream/unsV29210KH1181XW/1383J7692QB42190H1109SS25737698Y2905430873
+13,false,0,unique,yes,yes % http://www.nidosaltos.stream/?func=u
+12,false,0,unique,yes,yes % http://www.queesesto.stream/unsJN29211C1268Y/1469SL7907E43956OJ1109X25737698NF2905430874
+13,false,0,veryclose,yes,yes % http://www.questioned.stream/?func=u
+7,false,9,unique,yes,yes % http://vger.kernel.org/majordomo-info.html
+0,false,22,different,yes,yes % https://support.google.com/accounts/answer/2450236
+12,false,0,different,yes,yes % http://www.hopitalito.stream/?func=u
+11,false,0,veryclose,yes,yes % http://www.redroses.stream/?func=u
+12,false,0,different,yes,yes % http://www.jerusalen.stream/?func=u
+10,false,0,veryclose,yes,yes % http://www.karrater.stream/?func=u
+10,false,0,veryclose,yes,yes % http://www.galatas.stream/?func=u
+11,false,0,veryclose,yes,yes % http://www.karatedo.stream/?func=u
+7,false,1,similar,no,yes % http://www.gpen-parts.com/1c8d72f37f547e2c676c9ed4cf02_01cbf157-010101070001/V/
+13,false,0,veryclose,yes,yes % http://www.oropendolas.stream/?func=u
+11,false,0,veryclose,yes,yes % http://www.simplehack.stream/?func=u
+8,false,213,similar,no,yes % http://www.zattini.com.br/?utm_source=3D%3D
+8,false,71,identical,yes,yes % http://loja.stroke.com.br/?utm_source=3Dviptarg%3D
+9,false,156,different,no,yes % http://www.boticario.com.br/?ut&utm_source=3Dviptarget-
+5,false,7,veryclose,no,yes % http://bit.do/cCSsd
+6,true,4,similar,no,yes % http://b54.in/b4bq
+7,false,5,unique,yes,yes % http://www.mg-style.cn/detail.php?id=66
+10,false,0,identical,yes,yes % http://ad.lp.sendbr5.net.br/p3/w.php?34141%2C631%2C36783
+17,false,59,unique,no,yes % http://carsystem.protecaoveicular.net.br/?am&cid=3D1392
+6,false,21,unique,yes,yes % http://www.yac.mx/
+6,false,21,unique,yes,yes % http://www.yac.mx/?source=3Demail
+8,false,52,similar,no,yes % http://schema.org/Organization
+5,false,67,similar,yes,yes % http://www.taxpayer.com/
+8,false,57,similar,no,yes % http://schema.org/Offer
+9,true,0,different,yes,yes % http://251f1mwh3depdm1o8j839hn7bo.hop.clickbank.net/hop/?CBRehoppp2=http%3A%2F%2Fsurvivallife.com%2Fcb%2Fintl%2Ftacpen%2F%3Fhop%3Dprizm3&code=%7B0%2C%2B7%2C%2B14%7D&ds=2&hstr=1482241070072%7Cprizm3%7C%7Cjp7emdgq4t%7Csurvivpen&key=11DD281D&parms&s=default
+8,true,0,similar,yes,yes % http://xkadoes.top/
+4,true,18,identical,no,yes % http://www.wsj.com/news/articles/SB10001424052702303369904579427230127866184
+8,true,0,similar,yes,yes % http://flexxka.top/
+7,true,0,similar,yes,yes % http://fitstb.top/
+8,true,584,different,yes,yes % http://www.zattini.com.br/calcados/
+13,true,3,unique,yes,yes % http://1granddailyprofit.com/5daymillionaire/
+6,true,6,identical,no,no % http://news.bbc.co.uk/1/hi/business/5171222.stm
+17,true,2,identical,yes,yes % http://regrow-hair-protocol.com/?aff_id=13715&subid=ora1-1003-j97t
+14,true,4,identical,yes,yes % http://great-brain-secret.com/?aff_id=13715&subid=and78-1003-j24t
+12,true,2,identical,yes,yes % http://tinnitus-reversed.com/?aff_id=13715&subid=and78-1003-j22t
+6,true,3,unique,no,yes % https://buy.thetrackr.com/intl/gu/atlas/08/?aff_id=1166&camp_id=1340&clk_id=51572690&sub_id&utm_campaign=GU&utm_content=321&utm_medium&utm_source=1166&utm_term=51572690
+13,true,3,identical,no,yes %http://www.shedblueprints.top/
+3,false,0,identical,no,yes %http://beacon2.sndxar.com/OptOut.aspx?IDC&IDCust=3D
+9,false,3,different,no,yes %http://untroubled.org/
+12,false,4,identical,no,yes %http://www.theoreting.stream/l/lt9E40849SI2142DS/2177EU12784OA256671NM903FJ63317587C2917692761
+12,false,4,identical,no,yes %http://www.syllabour.stream/l/lt33D40861O1980RE/2015B12442YY252665U903EX63317587RF839045229
+12,false,4,identical,no,yes %http://www.protocond.stream/l/lt1LB40862X2157OD/2193E12828Y257253KD903VF63317587A839045230
+15,true,1,identical,no,yes %http://bridgecloudhosts.us/
+11,true,0,identical,no,yes %http://www.glosslurayhost.com/
+7,true,0,unique,yes,yes %http://www.beardblast.com/197d12c10afd0e9800/ncms6-1102-03t
+7,true,0,unique,yes,yes %http://armorei.top/
+3,true,2,identical,no,no % http://www.google.co.uk/?ei=OU9ZWPu-D4_38AfXrY6gAQ&gfe_rd=cr
+7,false,23,identical,no,no % https://en.wikipedia.org/wiki/Pacific_Time_Zone
+9,false,10,different,no,no % http://www.digitaltrends.com/cool-tech/aquamav-drone-swim-air/
+4,false,29,identical,no,no % https://itunes.apple.com/us/app/reddit-the-official-app/id1064216828?mt=8
+4,false,2,identical,no,no % https://gfycat.com/ScientificDazzlingFawn
+0,false,65,identical,no,no % https://play.google.com/store/apps/details?id=com.reddit.frontpage
+3,false,37,unique,no,no % https://www.abebooks.com/books/authors/brothers-grimm.shtml
+8,false,9,unique,no,no % http://www.travel.com.hk/region/timezone.htm
+9,false,41,veryclose,no,no % https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute
+6,false,7,unique,no,no % http://aa.usno.navy.mil/faq/docs/us_tzones.php
+5,false,0,identical,no,no % http://time5.nrc.ca/webclock_e.shtml
+8,false,43,identical,no,no % https://www.wikidata.org/wiki/Q847142
+4,false,0,identical,no,no % http://www.time.gov/
+0,false,0,identical,no,no % http://www.googletagmanager.com/ns.html?id=GTM-WKFXF7
+6,false,14,identical,no,no % https://www.linkedin.com/company/digitaltrends-com
+6,false,3,similar,no,no % https://s3.enervee.com/cg/enervee-charge-modal.css?ver=4.7
+9,false,2,veryclose,no,no % http://secure-dcr.imrworldwide.com/
+5,false,1,identical,no,no % https://www.icloud.com/
+6,false,119,similar,no,no % https://www.abebooks.de/?cm_sp=Ftr-_-static-_-sites3
+5,false,8,similar,no,no % https://www.abebooks.co.uk/?cm_sp=Ftr-_-static-_-sites2
+6,false,154,similar,no,no % https://www.abebooks.it/?cm_sp=Ftr-_-static-_-sites5
+6,false,119,similar,no,no % https://www.abebooks.fr/?cm_sp=Ftr-_-static-_-sites4
+0,true,6,identical,no,no % https://wordpress.org/
+10,false,12,unique,yes,no % http://www.insurance.com.hk/
+10,false,2,different,no,no % http://www.nrc-cnrc.gc.ca/eng/services/time/web_clock.html
+8,false,63,veryclose,no,no % http://www.justbooks.de/?cm_sp=Ftr-_-Home-_-companies1
+5,false,36,veryclose,yes,no % http://bookorithms.tumblr.com/
+7,false,218,similar,no,no % https://www.unicef.it/
+7,false,217,similar,no,no % https://www.unicef.fr/
+5,false,8,similar,no,no % https://central.wordcamp.org/
+4,false,10,different,no,no % https://bbpress.org/
+4,false,8,different,no,no % https://buddypress.org/
+0,false,16,different,no,no % http://jobs.wordpress.net/
+6,false,48,unique,no,no % https://ma.tt/
+3,false,11,different,no,no % http://www.tiglion.com/hotel/map/index.htm
+8,false,0,unique,no,no % http://www.intellects.org/static/ad_frame1_en.htm
+5,false,32,unique,no,no % http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css
+11,false,0,different,yes,no % http://www.train-ticket.net/
+14,false,1,similar,no,no % http://www.servicecanada.gc.ca/eng/home.shtml
+16,false,3,similar,no,no % http://healthycanadians.gc.ca/index-eng.php
+8,false,78,veryclose,no,no % http://www.justbooks.fr/?ref=bf_s1_ft_s4
+8,false,62,veryclose,no,no % http://www.justbooks.nl/?ref=bf_s1_ft_s5
+6,false,17,veryclose,no,no % http://www.justbooks.co.uk/?ref=bf_s1_ft_s2
+8,false,18,identical,no,no % https://www.justgiving.com/unicef
+4,false,0,different,no,no % http://t.umblr.com/redirect?b=t%3AIe7-HYaQBubU61RRB0OipQ&m=1&p=http%3A%2F%2Fbookorithms.tumblr.com%2Fpost%2F153868938674%2Fstar-authors-was-a-card-game-popular-in-the-1880s&t=MzUyZTgwODkyZjMxY2VkM2Y0MzNjNzhiYjUxOTUwODAxYjAzMzUxYiwxNTM4Njg5Mzg2NzQ%3D&z=http%3A%2F%2Fwww.abebooks.com
+8,false,22,different,no,no % http://safeasmilk.co/
+16,false,100,different,no,no % http://www.vacciniamolitutti.it/
+4,false,0,similar,no,no % https://rs.gwallet.com/r1/pixel/x31913
+13,false,687,identical,no,no % http://www.huffingtonpost.it/andrea-iacomini/
+7,false,0,unique,no,no % https://lightwidget.com/widgets/008081c42daa52f6b276fe9c2b795e16.html
+7,false,958,similar,no,no % http://www.dol.it/
+13,false,93,similar,no,no % http://boutique-solidaire.com/unicef/237-cartes-unicef
+7,false,272,similar,no,no % http://www.carteland.com/unicef/
+7,false,7,different,no,no % http://gmpg.org/xfn/11
+5,false,17,similar,no,no % https://www.packtpub.com/web-development/bbpress-complete
+3,false,2,unique,no,no % http://mercime.polldaddy.com/s/2016-buddypress-survey-site-builders-developers
+7,false,23,unique,no,no % http://joe-steel.com/2016-10-28-Apples-October-TV-Surprise.html
+5,false,37,veryclose,no,no % https://wptavern.com/state-of-the-word-2016-mullenweg-pushes-calypso-as-future-of-wordpress-interface-proposes-major-changes-to-release-cycle
+6,false,59,veryclose,no,no % http://www.newyorker.com/magazine/2016/12/12/pardon-edward-snowden
+8,false,9,unique,no,no % https://poststatus.com/interview-matt-mullenweg-new-wordpress-release-cycle/
+5,false,5,unique,no,no % http://dongle.blog/an-opportunity-for-a-new-dongle/
+9,true,3,unique,no,no % http://www.budget.gc.ca/
+13,true,125,unique,no,no % http://www.donenconfiance.org/
+8,false,10,different,yes,no % http://www.auspharm.net/eindex.htm
+5,false,24,identical,no,no % https://github.com/jquery/jquery-ui
+8,false,3,identical,no,no % http://news.gc.ca/web/article-en.do?crtr.page=1&crtr.tp1D=1&mthd=tp&nid=1078989
+7,false,2,identical,no,no % http://www.cic.gc.ca/english/index.asp
+9,false,2,identical,no,no % http://www.hc-sc.gc.ca/ewh-semt/occup-travail/whmis-simdut/index-eng.php
+7,false,4,identical,no,no % http://pm.gc.ca/eng
+16,false,219,veryclose,no,no % http://canadiensensante.gc.ca/index-fra.php
+8,false,16,similar,no,no % http://arenalsurf.com/
+13,false,499,identical,no,no % http://www.huffingtonpost.com.mx/
+7,false,459,similar,no,no % http://www.adnkronos.com/fatti/cronaca/2016/04/07/migranti-allarme-unicef-mila-bambini-bloccati-grecia_3eNQGCVD3Li7Z7KV98CYkL.html
+8,false,361,similar,no,no % http://www.lastampa.it/2015/07/26/esteri/in-camerun-bimba-kamikaze-si-fa-esplodere-in-un-bar-eUwzkpydN0my7MYfynNt3I/pagina.html
+10,false,410,similar,no,no % http://www.repubblica.it/esteri/2015/12/19/news/nuovo_naufragio_mar_egeo_morti_18_migranti-129789185/
+13,false,197,similar,no,no % http://www.operationsmile.it/
+11,false,17,unique,no,no % http://www.bike2smile.it/
+20,false,194,different,no,no % http://www.associazionemagistrati.it/
+6,false,16,similar,yes,no % http://www.adrcenter.com/
+9,false,137,veryclose,no,no % http://www.smartstudent.it/
+9,false,261,similar,yes,no % http://www.eodd2014.it/it/
+8,false,63,similar,no,no % http://www.zokaartjes.com/unicef/
+10,false,63,similar,no,no % http://www.carteland.de/unicef/
+7,false,196,unique,no,no % https://www.ekomi.fr/avis-clients-cartelandcom.html
+7,false,39,similar,no,no % http://meyerweb.com/
+6,false,44,veryclose,no,no % http://i0.poll.fm/css/survey-style/150.css?1482248258
+12,false,3,unique,no,no % http://www.socialfoundation.io/
+6,false,12,identical,no,no % https://kraft.im/
+8,false,43,identical,no,no % https://archive.org/index.php
+10,false,7,unique,no,no % http://www.blackgirlscode.com/
+9,false,8,similar,no,no % http://themehybrid.com/themes/stargazer
+9,false,9,different,no,no % http://www.hackthehood.org/
+10,false,7,unique,no,no % https://www.onthegosystems.com/
+12,false,15,similar,no,no % http://waylightcreations.com/podcast
+6,false,54,similar,no,no % https://www.poets.org/poetsorg/poem/praise-song-day
+7,false,36,identical,no,no % http://www.anandtech.com/show/9677/nvidia-shield-android-tv-ota-update-improves-htpc-credentials
+4,false,18,different,no,no % http://www.mi.com/en/mibox/
+8,false,11,identical,no,no % http://phx.corporate-ir.net/phoenix.zhtml?ID=2206525&c=176060&p=irol-newsArticle
+6,false,20,identical,no,no % http://www.theverge.com/circuitbreaker/2016/10/3/13150534/xiaomi-4k-mi-box-us-release-sale
+4,false,18,identical,no,no % http://gizmodo.com/hbo-go-is-now-available-on-amazon-fire-tv-1671387980?tag=thewire06-20
+4,false,7,identical,no,no % http://investors.nytco.com/press/press-releases/press-release-details/2016/The-New-York-Times-Company-Acquires-The-Wirecutter-and-The-Sweethome/default.aspx
+8,false,50,unique,no,no % http://feeds.feedburner.com/TheWirecutter
+15,false,73,unique,no,no % http://www.greenkitchenstories.com/hot-blender-chocolate-vitamix-competition/
+10,false,2,unique,no,no % http://thebigship.net/
+9,false,40,different,no,no % http://zatznotfunny.com/2016-08/roku-preps-express-premiere-ultra-models-plus-hdr/
+4,false,60,unique,no,no % http://www.pcmag.com/article2/0,2817,2455602,00.asp
+8,false,24,different,no,no % http://lifehacker.com/how-to-get-the-best-possible-roku-experience-on-the-ch-1646177801
+9,false,13,identical,no,no % https://blog.google/products/chromecast/fastest-chromecast-yet-4k-and-hdr-support/
+15,false,20,similar,no,no % http://referencehometheater.com/
+7,false,17,different,no,no % http://www.condenast.com/?src=tny-footer
+11,false,32,identical,no,no % http://www.condenaststore.com/~/new-yorker-store?AID=1247905545&utm_content=SHOP&utm_medium=referral&utm_source=NewYorker
+6,false,0,unique,no,no % http://www.wnyc.org/widgets/ondemand_player/thenewyorker/
+7,false,10,different,no,no % https://www.whatswithtech.com/
+7,false,0,unique,no,no % https://cloud.typography.com/
+4,false,11,unique,no,no % http://www.stitcher.com/podcast/krogsgard/post-status-draft-wordpress-podcast
+11,false,9,unique,no,no % http://www.andersnoren.se/
+14,false,105,different,no,no % http://www.achacunsoneverest.com/
+15,false,141,similar,no,no % http://www.entrepreneursdumonde.org/
+13,false,172,similar,no,no % http://icm-institute.org/fr/
+12,false,123,different,no,no % http://www.actionenfance.org/
+15,false,299,similar,no,no % http://www.fondationhopitaux.fr/
+8,false,137,similar,no,no % http://www.pasteur.fr/fr
+11,false,197,similar,no,no % http://www.leriremedecin.org/
+7,false,114,unique,no,no % http://www.sossahel.org/
+7,false,131,veryclose,no,no % https://www.avsf.org/
+6,false,105,different,no,no % https://www.cncc.fr/
+7,false,251,similar,no,no % http://www.acted.org/
+9,false,165,similar,no,no % http://www.jpa.asso.fr/
+12,false,259,different,no,no % https://www.ligue-cancer.net/
+5,false,262,different,no,no % http://www.ssvp.fr/
+9,false,107,different,no,no % http://www.snl-union.org/
+7,false,116,similar,no,no % http://www.fndsa.org/
+10,false,144,similar,no,no % http://www.ilot.asso.fr/
+16,false,332,veryclose,no,no % https://www.plan-international.fr/
+15,false,181,veryclose,no,no % http://ccfd-terresolidaire.org/
+10,false,100,unique,no,no % http://www.cfsi.asso.fr/
+6,false,151,unique,no,no % http://www.pmaf.org/
+9,false,10,different,no,no % http://www.digitaltrends.com/cool-tech/aquamav-drone-swim-air/
+3,false,2,similar,no,yes % http://beacon2.sndxar.com/OptOut.aspx?EmailAddress=bruce%40untroubled.org&IDCamp=970e0dfd-354a-43fb-9542-d76d873de6f8&IDContact=5a4ed3f7-aa3d-4d35-8e4f-001253c86855&IDRecipient=2C496D60-48A8-4FC1-9EF4-22E45E9417E6
+9,false,3,identical,no,yes % http://untroubled.org/
+12,false,4,similar,yes,yes % http://www.theoreting.stream/l/lt9E40849SI2142DS/2177EU12784OA256671NM903FJ63317587C2917692761
+12,false,0,different,yes,yes % http://www.syllabour.stream/unsFN40861JF1980B/2015G12442IE252665B903HF63317587G839045229
+12,false,4,different,yes,yes % http://www.protocond.stream/l/lt9TR40862B2157PH/2193J12828F257253IV903GD63317587A839045230
+11,true,0,veryclose,yes,yes % http://www.glosslurayhost.com/
+7,true,0,unique,yes,yes % http://www.beardblast.com/197d12c10afd0e9800/ncms6-1102-03t
+7,true,0,different,no,yes % http://armorei.top/
+14,true,4,similar,yes,yes % http://great-brain-secret.com/?aff_id=13715&subid
+14,true,3,similar,yes,yes % http://www.papertoweltruth.top/
+11,true,3,similar,yes,yes % http://neuropathyfix.org/?aff_id=13715&subid
+14,true,3,similar,yes,yes % http://www.landscapeyourhome.top/
+12,true,3,similar,yes,yes % http://www.cleanupclutter.top/
+9,false,0,identical,no,yes % http://web2.mpmailserv.co.uk/bg/unsubscribe.asp?cid=96806&sid=29280851
+11,false,4,identical,no,yes % http://www.allsupports.us/l/lc8Y917L139EY/337TK432VG621I42G11865TX392060313
+10,false,4,different,no,yes % http://www.compelen.stream/l/lt9GM40791YV2142G/2177FO12784LR256671LV952B63317587WA2917692754
+9,false,3,identical,no,yes % http://untroubled.org/
+10,false,0,identical,yes,yes % http://www.compelen.stream/unsP40791JH2142H/2177A12784M256671R952C63317587K2917692754
+7,false,0,identical,yes,yes % http://link.optionsxo.com/wf/unsubscribe?upn=3D95ipHO-2FHt%3D
+12,false,1,veryclose,yes,yes % http://0sn47uw95.addth9nngold.net/free/f/free_ask?loginkey=3ab8fd3c907d47d565b46c1ceb66b5ee0c3d5307a3c3d8f25f1830f7eb4fc167
+10,false,1,unique,no,yes % http://32o1k4tzw.a2r3gje9gold.net/free/f/free_ask?loginkey=3ab8fd3c907d47d565b46c1ceb66b5ee0c3d5307a3c3d8f25f1830f7eb4fc167
+8,true,4,veryclose,yes,yes % http://www.lenized.bid/l/lt1BC40742N2130NJ/2165RL12755NT256235TA952XJ63317587TO839045207
+10,false,4,similar,yes,yes % http://www.tandary.stream/l/lt9L40857B2160S/2196NA12832Q257278DW903WM63317587JO839045128
+10,false,4,similar,yes,yes % http://www.narrene.stream/l/lt39CA40785JC1974P/2009T12424F252612PJ952TX63317587UI2917692750
+10,false,4,similar,yes,yes % http://www.sidentified.win/l/lt9B40802VW2144J/2179Q12786O256696OL903L63317587S839045212
+9,false,4,similar,yes,yes % http://www.goalter.stream/l/lt1K40656LG2158B/2194TL12843TL257261J952R63317587UV839045126
+7,false,5,unique,no,yes % http://www.mg-style.cn/detail.php?id=66
+5,false,7,veryclose,no,yes % http://bit.do/cCBGg
+11,false,95,unique,yes,yes % http://pedidopendrive.com/
+5,false,6,veryclose,no,yes % http://bit.do/cCwMa
+6,false,4,veryclose,no,yes % http://b54.in/b49q
+8,false,2,veryclose,no,yes % http://www.slimfyworks.com/178fa0f974647f2c676c9ed_1d99f157/U/
+5,false,11,similar,no,yes % http://track.mdrctr.com/track/unsubscribe/empId/47659/subId/254/listId/2/conId/517806/conEmail/bruce@untroubled.org/type/8/motivo/list-unsubscribe/signature/f72aeaee48958a993c25ad3c1845e0a7
+11,false,0,different,yes,yes % http://www.iniciacion.stream/?func=u
+13,false,0,different,yes,yes % http://www.jardinesaqui.stream/?func=u
+7,false,11,different,yes,yes % http://mail.mmv32879.com/track/unsubscribe/empId/47659/subId/273/listId/2/conId/517806/conEmail/bruce@untroubled.org/type/8/motivo/list-unsubscribe/signature/d89e9b8cffc93bd68cbb6c3c5ccef3b8
+7,false,28,unique,yes,yes % http://mail.mmv32879.com/track/pre-unsubscribe/category/EMAIL/empId/47659/subId/273/listId/2/conId/517806/signature/d89e9b8cffc93bd68cbb6c3c5ccef3b8/conEmail/bruce@untroubled.org/conMovil/-
+7,false,1,veryclose,no,yes % http://www.gpen-parts.com/178640f3d8a47e2c676c9ed_01cbf157/U/
+13,false,0,similar,yes,yes % http://www.oropendolas.stream/?func=u
+11,false,0,similar,yes,yes % http://www.simplehack.stream/?func=u
+8,false,213,similar,no,yes % http://www.zattini.com.br/?utm_source=3D%3D
+8,false,415,unique,no,yes % http://loja.stroke.com.br/politica-de-privacidade
+9,false,155,different,no,yes % http://www.boticario.com.br/?ut&utm_source=3Dviptarget-
+5,false,7,veryclose,no,yes % http://bit.do/cCSsd
+6,false,4,veryclose,no,yes % http://b54.in/b4bq
+10,false,0,identical,no,yes % http://ad.lp.sendbr5.net.br/p3/w.php?34141%2C631%2C36783
+17,false,59,different,yes,yes % http://carsystem.protecaoveicular.net.br/?am&cid=3D1392
+17,false,59,different,yes,yes % http://carsystem.protecaoveicular.net.br/?amp%3B&cid=3D1392
+6,false,21,similar,no,yes % http://www.yac.mx/
+6,false,21,similar,no,yes % http://www.yac.mx/?source=3Demail
+8,false,26,different,no,yes % http://schema.org/EmailMessage
+5,false,66,unique,no,yes % http://www.taxpayer.com/
+6,false,1,veryclose,no,yes % http://mandrillapp.com/contact/abuse?id=30354386.8f79f08a19df4bd882c2110db42e3ae8
+4,false,4,veryclose,no,yes % https://www.swapcard.com/
+8,false,0,identical,no,yes % http://t.ymlp168.net/unsub_gheqehwgsgmsseewgmswyggehqwu.php
+12,false,435,unique,yes,yes % http://www.depozit-online.ro/shop/tabla-prevopsita/tabla-cutata-prevopsita=
+9,false,0,veryclose,yes,yes % http://www.kazas.stream/?func=u
+11,false,0,identical,yes,yes % http://www.lumpendio.stream/?func=u
+10,false,0,identical,yes,yes % http://www.limpieza.stream/?func=u
+11,false,0,identical,yes,yes % http://www.mejoria.stream/?func=u
+11,false,0,identical,yes,yes % http://www.nosotrosus.stream/?func=u
+11,false,0,identical,yes,yes % http://www.oracion.stream/?func=u
+10,false,0,different,yes,yes % http://www.pantanos.stream/?func=u
+10,false,0,similar,yes,yes % http://www.perdon.stream/?func=u
+15,false,0,similar,yes,yes % http://www.questinamiento.stream/?func=u
+8,false,0,different,yes,yes % http://www.tomo.stream/?func=u
+10,false,0,unique,yes,yes % http://www.aceptar.stream/?func=u
+11,false,0,unique,yes,yes % http://www.dendritas.stream/?func=u
+10,false,0,unique,yes,yes % http://www.emocion.stream/?func=u
+12,false,0,unique,yes,yes % http://www.humanidad.stream/?func=u
+8,true,0,similar,yes,yes % http://www.ntgenerator.com/report?aff_id=89&subid=cent1-1030-13t
+11,true,0,similar,yes,yes % http://www.glosslurayhost.com/
+7,true,0,unique,yes,yes % http://www.beardblast.com/197d12bdad83df1000/store1031-04t/
+18,true,5,veryclose,yes,yes % http://ultimateherpesprotocol.com/?aff_id=44129&subid=atl1102-j81t
+7,true,0,identical,yes,yes % http://fitstb.top/
+4,true,3,different,no,yes % https://bitly.com/a/warning?hash=1VK5iwl&url=http%3A%2F%2Fcadernointeligente.adm.br%2F
+11,true,6,identical,yes,yes % http://www.morenasaude.com.br/05/nao.php
+11,true,3,veryclose,yes,yes % http://mydiabetesfix.org/?aff_id=13715&subid=abs1001-k05t
+8,true,0,identical,yes,yes % http://flexxka.top/
+14,true,4,veryclose,yes,yes % http://great-brain-secret.com/?aff_id=13715&subid=abs1001-k14t
+8,true,0,identical,yes,yes % http://xkadoes.top/
+17,true,2,veryclose,yes,yes % http://regrow-hair-protocol.com/?aff_id=13715&subid=art1001-j94t
+12,true,2,veryclose,yes,yes % http://tinnitus-reversed.com/?aff_id=13715&subid=ynm2-1001-k12t
+20,true,1,veryclose,yes,yes % http://theleanbellybreakthrough.com/?aff_id=5243&subid=eor1001-10t
+9,true,0,identical,no,yes % http://251f1mwh3depdm1o8j839hn7bo.hop.clickbank.net/hop/?CBRehoppp2=http%3A%2F%2Fsurvivallife.com%2Fcb%2Fintl%2Ftacpen%2F%3Fhop%3Dprizm3&code=%7B0%2C%2B7%2C%2B14%7D&ds=2&hstr=1482088990500%7Cprizm3%7C%7C7n3emdfmgb%7Csurvivpen&key=05258D41&parms&s=default
+8,true,241,veryclose,yes,yes % http://www.zattini.com.br/calcados/
+6,true,6,identical,no,no % http://news.bbc.co.uk/1/hi/business/5171222.stm
+15,true,2,veryclose,yes,yes % http://www.hearinglossreversed.com/report?aff_id=230&subid=dcs1004-j47t
+3,true,52,unique,no,yes % http://ymlp.com/zWp09o
+11,true,9,veryclose,yes,yes % http://fatdiminisher.net/?aff_id=10019&subid=shkt1004-k39t
+7,true,0,different,no,yes % http://armorei.top/
+13,true,3,veryclose,yes,yes % http://www.shedblueprints.top/
+14,true,3,veryclose,yes,yes % http://www.landscapeyourhome.top/
+4,true,0,unique,no,yes % http://www.cohetude.com/gefpBoPzQUFxzACxG2azhDfgYJhGFcyBa0kVhUNh5Vg2gJ30tFpuaNpjvprK6fLsJIGdHs3ZxWZkEYVZgrsC8g~~/
+15,true,3,identical,no,yes % http://www.shedbuildingplans.top/
+13,true,3,veryclose,yes,yes % http://www.quitsnoringnow.top/
+7,true,1,similar,yes,yes % https://www.ubertorch.com/uk/index.html?Affid=953&s1=ynm2-1001-06t&s2&s3&s4&s5=56622750
+6,true,3,similar,yes,yes % https://buy.thetrackr.com/intl/gu/atlas/08/?aff_id=1166&camp_id=1340&clk_id=51436254&sub_id&utm_campaign=GU&utm_content=321&utm_medium&utm_source=1166&utm_term=51436254
+13,true,15,identical,yes,yes % http://www.meetrussianbeauty.com/qa/register05.php?aid=984&oid=CP246107&qpid_clickid=84684914&qpid_offer_id=MRB_265572TADSK&qpid_subid=4384
+12,true,1,unique,no,yes % http://www.autowarrantydirects.com/?affid=175&reqid=23296396&v=2
+0,false,0,identical,no,no % http://www.firstyearmatters.info/cs/
+0,true,7,identical,no,no % https://www.matillion.com/
+0,false,15,identical,no,no % http://www.firstyearmatters.info/fym.css
+0,false,0,identical,no,no % http://www.salford.ac.uk/qeo/StudentPolicies
+0,false,5,identical,no,no % https://fonts.googleapis.com/css?family=Open%2BSans%3A400%2C300%7CRoboto%3A400%2C300%7CRoboto%2BSlab%3A400%2C300&ver=4.6.1
+0,false,4,identical,no,no % https://www.youtube.com/user/MatillionVideos
+0,false,0,identical,no,no % http://www.googletagmanager.com/ns.html?id=GTM-TVD4DB
+0,false,6,identical,no,no % http://www.salfordstudents.com/
+0,true,6,identical,no,no % https://wordpress.org/
+4,false,32,veryclose,no,no % https://s.ytimg.com/yts/cssbin/www-pageframe-vflf8g2lE.css
+3,false,27,identical,no,no % https://www.google.co.uk/intl/en-GB/policies/privacy/
+8,false,2,veryclose,no,no % http://www.unioncloud.co.uk/
+0,false,4,similar,no,no % https://www.snapchat.com/add/salfordsu
+0,false,5,identical,no,no % https://open.spotify.com/user/salfordsu
+13,false,1,different,no,no % http://www.salfordstudentsclothingstore.com/
+5,false,8,similar,no,no % https://central.wordcamp.org/
+4,false,10,veryclose,no,no % https://bbpress.org/
+4,false,8,veryclose,no,no % https://buddypress.org/
+0,false,16,veryclose,no,no % http://jobs.wordpress.net/
+6,false,48,unique,no,no % https://ma.tt/
+7,true,3,unique,no,no % http://lightwidget.com/widgets/eec3f083a27f94515bf2b2c30470f388f580084b.html
+0,false,2,unique,no,no % https://www.snap.com/en-US/
+7,false,7,identical,no,no % http://gmpg.org/xfn/11
+5,false,17,veryclose,no,no % https://www.packtpub.com/web-development/bbpress-complete
+3,false,2,different,no,no % http://mercime.polldaddy.com/s/2016-buddypress-survey-site-builders-developers
+7,false,23,similar,no,no % http://joe-steel.com/2016-10-28-Apples-October-TV-Surprise.html
+5,false,36,veryclose,no,no % https://wptavern.com/state-of-the-word-2016-mullenweg-pushes-calypso-as-future-of-wordpress-interface-proposes-major-changes-to-release-cycle
+6,false,60,identical,no,no % http://www.newyorker.com/magazine/2016/12/12/pardon-edward-snowden
+8,false,9,different,no,no % https://poststatus.com/interview-matt-mullenweg-new-wordpress-release-cycle/
+5,false,5,similar,no,no % http://dongle.blog/an-opportunity-for-a-new-dongle/
+7,false,1,unique,no,no % https://www.spectacles.com/
+7,false,39,similar,no,no % http://meyerweb.com/
+6,false,44,veryclose,no,no % http://i0.poll.fm/css/survey-style/150.css?1482195253
+4,false,15,identical,no,no % http://www.apple.com/tvos/
+12,false,3,different,no,no % http://www.socialfoundation.io/
+8,false,43,identical,no,no % https://archive.org/index.php
+10,false,7,unique,no,no % http://www.blackgirlscode.com/
+9,false,8,similar,no,no % http://themehybrid.com/themes/stargazer
+9,false,9,different,no,no % http://www.hackthehood.org/
+6,false,55,different,no,no % https://www.poets.org/poetsorg/poem/praise-song-day
+7,false,36,identical,no,no % http://www.anandtech.com/show/9677/nvidia-shield-android-tv-ota-update-improves-htpc-credentials
+4,false,18,different,no,no % http://www.mi.com/en/mibox/
+8,false,11,similar,no,no % http://phx.corporate-ir.net/phoenix.zhtml?ID=2206525&c=176060&p=irol-newsArticle
+6,false,22,similar,no,no % http://www.theverge.com/circuitbreaker/2016/10/3/13150534/xiaomi-4k-mi-box-us-release-sale
+4,false,19,similar,no,no % http://gizmodo.com/hbo-go-is-now-available-on-amazon-fire-tv-1671387980?tag=thewire06-20
+4,false,7,unique,no,no % http://investors.nytco.com/press/press-releases/press-release-details/2016/The-New-York-Times-Company-Acquires-The-Wirecutter-and-The-Sweethome/default.aspx
+8,false,50,unique,no,no % http://feeds.feedburner.com/TheWirecutter
+15,false,73,similar,no,no % http://www.greenkitchenstories.com/hot-blender-chocolate-vitamix-competition/
+10,false,2,unique,no,no % http://thebigship.net/
+9,false,40,similar,no,no % http://zatznotfunny.com/2016-08/roku-preps-express-premiere-ultra-models-plus-hdr/
+4,false,60,identical,no,no % http://www.pcmag.com/article2/0,2817,2455602,00.asp
+8,false,25,unique,no,no % http://lifehacker.com/how-to-get-the-best-possible-roku-experience-on-the-ch-1646177801
+9,false,13,identical,no,no % https://blog.google/products/chromecast/fastest-chromecast-yet-4k-and-hdr-support/
+15,false,20,similar,no,no % http://referencehometheater.com/
+7,false,17,similar,no,no % http://www.condenast.com/?src=tny-footer
+11,false,32,similar,no,no % http://www.condenaststore.com/~/new-yorker-store?AID=1247905545&utm_content=SHOP&utm_medium=referral&utm_source=NewYorker
+6,false,0,unique,yes,no % http://www.wnyc.org/widgets/ondemand_player/thenewyorker/
+7,false,0,unique,no,no % https://cloud.typography.com/
+4,false,11,different,no,no % http://www.stitcher.com/podcast/krogsgard/post-status-draft-wordpress-podcast
+11,false,9,similar,no,no % http://www.andersnoren.se/
+5,false,16,identical,no,no % https://github.com/tantek
+4,false,0,unique,no,no % http://h2vx.com/
+7,false,20,identical,no,no % https://en.wikipedia.org/wiki/User:Tantek
+9,false,165,veryclose,no,no % http://microformats.org/wiki/microformats2
+8,false,2,similar,no,no % https://pubsubhubbub.superfeedr.com/
+8,false,35,identical,no,no % https://en.wikiquote.org/wiki/David_Bowie
+8,false,100,veryclose,no,no % https://wiki.mozilla.org/Tantek-Mozilla-projects
+5,false,44,identical,no,no % https://www.flickr.com/people/tantek/
+5,false,19,different,no,no % http://lanyrd.com/profile/t/future/
+7,false,37,identical,no,no % https://www.buzzfeed.com/nitashatiku/google-muslim-registry-trump
+7,false,7,similar,no,no % http://known.kevinmarks.com/2016/homebrew-website-club-san-francisco-2016-12-14
+9,false,7,veryclose,no,no % http://webmention.io/tantek.com/webmention
+4,false,22,veryclose,no,no % http://flashforward.wikia.com/wiki/Dyson_Frost%27s_wall
+6,false,7,unique,no,no % http://stanford.edu/
+6,false,10,unique,yes,no % http://asin.cc/
+7,false,16,unique,no,no % http://labs.jensimmons.com/
+7,false,9,unique,no,no % https://makerbase.co/m/m36zp6/meyerweb
+8,false,2,unique,no,no % http://s5project.org/
+12,false,5,identical,no,no % http://igalia.github.io/css-grid-layout/enable.html
+10,false,4,similar,no,no % http://gridbyexample.com/browsers/
+6,false,18,veryclose,no,no % http://www.usatoday.com/story/news/local/2016/07/13/mercy-coxhealth-springfield-health-system-dont-play-pokemon-go/87033382/
+7,false,47,different,no,no % https://css-tricks.com/snippets/css/complete-guide-grid/
+9,false,15,similar,no,no % http://www.theepochtimes.com/n3/2112106-man-blows-up-on-twitter-as-he-narrates-on-how-his-house-turned-into-a-pokemon-go-gym-overnight/
+10,false,17,unique,no,no % http://www.beckcenter.org/
+5,false,6,unique,no,no % http://valhead.com/
+5,false,11,similar,no,no % http://www.oreilly.com/live-training/css-animation.html
+9,false,2,different,no,no % http://complexspiral.com/
+14,false,9,different,no,no % http://blogadvisorysystem.com/
+0,false,12,identical,no,no % https://vimeo.com/174821377
+8,false,3,veryclose,no,no % http://css-discuss.org/
+7,false,7,unique,no,no % http://www.case.edu/utech/tec/list-of-classrooms/strosacker-auditorium/
+3,false,23,identical,no,no % http://www.imdb.com/name/nm0424901/
+11,false,4,unique,no,no % http://rebeccasgift.org/
+9,false,54,veryclose,no,no % http://grandperspectiv.sourceforge.net/
+5,false,1,identical,no,no % https://www.icloud.com/
+7,false,2,different,yes,no % https://relayfm.memberful.com/checkout?plan=9634
+5,false,67,different,no,no % http://feedpress.me/clockwiseidg
+6,false,1,unique,no,no % http://pca.st/Axsr
+8,false,85,similar,no,no % https://overcast.fm/p231650-pQB7QV
+6,false,40,veryclose,no,no % http://builder-assets.unbounce.com/published/page-defaults-7b5360a.z.css
+10,false,18,veryclose,no,no % https://openlibrary.org/
