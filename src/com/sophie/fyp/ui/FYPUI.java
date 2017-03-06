@@ -26,6 +26,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -181,7 +182,7 @@ public class FYPUI extends javafx.application.Application
 		
 		ui = new Pane();
 		setUpUI(ui);
-		root.setLeft(ui);
+		root.setCenter(ui);
 		
 		MenuBar menuBar = new MenuBar();
 		setUpMenu(menuBar);		
@@ -330,6 +331,18 @@ public class FYPUI extends javafx.application.Application
 		
 		urlText.setLayoutX(150);
 		urlText.setLayoutY(50);
+		urlText.setPrefWidth(600);
+		urlText.setOnKeyPressed(new EventHandler<KeyEvent>()
+		{
+
+			@Override
+			public void handle(KeyEvent event)
+			{
+				// TODO Auto-generated method stub
+				predictionLabel.setText("");
+				accuracyLabel.setText("");
+			}
+		});
 		left.getChildren().add(urlText);
 		
 		
