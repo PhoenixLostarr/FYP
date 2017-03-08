@@ -18,6 +18,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -49,17 +50,17 @@ import weka.core.SerializationHelper;
 
 public class FYPUI extends javafx.application.Application
 {
-	private Button predict = new Button("Predict");
+	private Button predict = new Button("Classify website");
 	private Label predictionLabel = new Label();
 	private Label accuracyLabel = new Label();
-	
+	private Label urlLabel = new Label();
 	private TextField urlText = new TextField();
 	private ChoiceBox<String> offerText = new ChoiceBox<String>(FXCollections.observableArrayList("?", "yes", "no"));
 	private ChoiceBox<String> lfText = new ChoiceBox<String>(FXCollections.observableArrayList("?", "identical", 
 			"veryclose", "similar", "different", "unique"));
-	private String predictDefault = "This system is used for distinguishing phishing websites from benevolent ones.";
-	private String accuracyDefault = "Just enter the requested values, hit the Predict button, and PhishGuard"
-			+ " will tell you whether it thinks the website is a phishing website or not.";
+	private String predictDefault = "Welcome to PhishGuard, a new system for phishing detection and defence! ";
+	private String accuracyDefault = "Please enter the URL of the website you wish to distinguish, optionally provide the other attributes shown, and "
+				+ "hit \"Classify Website\". PhishGuard will then give you a prediction, and a measure of confidence in that prediction.";
 	private BorderPane root;
 	private ScrollPane scroll;
 	private Pane ui;
@@ -200,8 +201,8 @@ public class FYPUI extends javafx.application.Application
 				urlText.setPrefWidth(newValue.doubleValue() - 180.0);	
 				predictionLabel.setPrefWidth(newValue.doubleValue() - 430);
 				accuracyLabel.setPrefWidth(newValue.doubleValue() - 430);
-				pBar.setPrefWidth(newValue.doubleValue() - 200);
-				
+				pBar.setPrefWidth(newValue.doubleValue() - 250);
+				urlLabel.setPrefWidth(newValue.doubleValue() - 40);
 				
 			}
 		});
@@ -391,14 +392,16 @@ public class FYPUI extends javafx.application.Application
 		
 		
 		
-		Label urlLabel = new Label("URL:");
+		urlLabel.setText("Please enter the URL of the website you wish to obtain a prediction for.");
 		urlLabel.setLayoutX(10);
-		urlLabel.setLayoutY(50);
+		urlLabel.setLayoutY(10);
+		
+		urlLabel.setWrapText(true);
 		left.getChildren().add(urlLabel);
 		
 		
-		urlText.setLayoutX(150);
-		urlText.setLayoutY(50);
+		urlText.setLayoutX(100);
+		urlText.setLayoutY(75);
 		
 		urlText.setOnKeyPressed(new EventHandler<KeyEvent>()
 		{
@@ -432,30 +435,34 @@ public class FYPUI extends javafx.application.Application
 		left.getChildren().add(urlText);
 		
 		
-		Label offerLabel = new Label("Offers:");
+		Label offerLabel = new Label("Please enter whether or not the website makes you any offers in exchange for personal information. ");
 		offerLabel.setLayoutX(10);
-		offerLabel.setLayoutY(150);
+		offerLabel.setLayoutY(145);
+		offerLabel.setPrefWidth(350);
+		offerLabel.setWrapText(true);
 		left.getChildren().add(offerLabel);
 		
 		
 		offerText.setValue("?");
-		offerText.setLayoutX(150);
-		offerText.setLayoutY(150);
+		offerText.setLayoutX(100);
+		offerText.setLayoutY(225);
 		left.getChildren().add(offerText);
 		
-		Label lfLabel = new Label("Look and feel:");
+		Label lfLabel = new Label("Please enter how you think the website compares aesthetically to other, benevolent websites you've visited in the past.");
 		lfLabel.setLayoutX(10);
-		lfLabel.setLayoutY(250);
+		lfLabel.setLayoutY(280);
+		lfLabel.setPrefWidth(350);
+		lfLabel.setWrapText(true);
 		left.getChildren().add(lfLabel);
 		
 		
 		lfText.setValue("?");
-		lfText.setLayoutX(150);
-		lfText.setLayoutY(250);
+		lfText.setLayoutX(100);
+		lfText.setLayoutY(375);
 		left.getChildren().add(lfText);
 		
 		predict.setLayoutX(100);
-		predict.setLayoutY(350);
+		predict.setLayoutY(450);
 		left.getChildren().add(predict);
 		
 		predictionLabel.setLayoutX(400);
@@ -475,12 +482,13 @@ public class FYPUI extends javafx.application.Application
 		
 		pBar = new ProgressBar();
 		pBar.setLayoutX(160);
-		pBar.setLayoutY(500);
+		pBar.setLayoutY(520);
 		pBar.setProgress(0);
 		
 		left.getChildren().add(pBar);
-		progressLabel.setLayoutX(200);
-		progressLabel.setLayoutY(450);
+		progressLabel.setLayoutX(10);
+		progressLabel.setLayoutY(520);
+		progressLabel.setAlignment(Pos.CENTER_RIGHT);
 		progressLabel.setText(progressLabels[0]);
 		left.getChildren().add(progressLabel);
 	}
