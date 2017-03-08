@@ -17,7 +17,6 @@ import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -34,10 +33,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -114,7 +110,7 @@ public class FYPUI extends javafx.application.Application
 					}
 					case "Light":
 					{
-						changeTheme(Color.WHITESMOKE,toRGBCode(Color.DIMGRAY.darker()));
+						changeTheme(Color.WHITESMOKE,toRGBCode(Color.BLACK));
 						break;
 					}
 					case "Blue":
@@ -156,8 +152,8 @@ public class FYPUI extends javafx.application.Application
 		
 		private void changeTheme(Color bgColor, String hexCode)
 		{
-			root.setBackground(new Background(new BackgroundFill(bgColor, CornerRadii.EMPTY,
-				    Insets.EMPTY)));
+			
+			root.setStyle("-fx-background: " + toRGBCode(bgColor)+ ";");
 			
 			for(Node node: ui.getChildren())
 			{
