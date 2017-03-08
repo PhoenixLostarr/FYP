@@ -1,4 +1,4 @@
-package com.sophie.fyp.ui;
+ package com.sophie.fyp.ui;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,7 +11,10 @@ import com.sophie.fyp.crawler.ArffData;
 import com.sophie.fyp.crawler.DataGatherer;
 import com.sophie.fyp.mining.InstanceSetup;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -23,7 +26,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyEvent;
@@ -43,18 +49,26 @@ import weka.core.SerializationHelper;
 
 public class FYPUI extends javafx.application.Application
 {
-	Button predict = new Button("Predict");
-	Label predictionLabel = new Label();
-	Label accuracyLabel = new Label();
+	private Button predict = new Button("Predict");
+	private Label predictionLabel = new Label();
+	private Label accuracyLabel = new Label();
 	
-	TextField urlText = new TextField();
-	ChoiceBox<String> offerText = new ChoiceBox<String>(FXCollections.observableArrayList("?", "yes", "no"));
-	ChoiceBox<String> lfText = new ChoiceBox<String>(FXCollections.observableArrayList("?", "identical", 
+	private TextField urlText = new TextField();
+	private ChoiceBox<String> offerText = new ChoiceBox<String>(FXCollections.observableArrayList("?", "yes", "no"));
+	private ChoiceBox<String> lfText = new ChoiceBox<String>(FXCollections.observableArrayList("?", "identical", 
 			"veryclose", "similar", "different", "unique"));
-	
-	BorderPane root;
-	Pane ui;
-	EventHandler<ActionEvent> menuEventHandler = new EventHandler<ActionEvent>()
+	private String predictDefault = "This system is used for distinguishing phishing websites from benevolent ones.";
+	private String accuracyDefault = "Just enter the requested values, hit the Predict button, and PhishGuard"
+			+ " will tell you whether it thinks the website is a phishing website or not.";
+	private BorderPane root;
+	private ScrollPane scroll;
+	private Pane ui;
+	private Scene scene;
+	private ProgressBar pBar;
+	private String[] progressLabels = {"Ready", "Analyzing URL", "Collecting redirection status",
+			"Counting spelling errors","Preparing classifier", "Setting up instance", "Classifying", "Complete!"};
+	Label progressLabel = new Label();
+	private EventHandler<ActionEvent> menuEventHandler = new EventHandler<ActionEvent>()
 	{
 
 		@Override
@@ -176,97 +190,149 @@ public class FYPUI extends javafx.application.Application
 		
 		stage.setTitle("PhishGuard Phishing Detection Program");
 		root = new BorderPane();
-		stage.setScene(new Scene(root,800,600));
-//		root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY,
-//			    Insets.EMPTY)));
+		scene = new Scene(root,800,600);
 		
+		scene.widthProperty().addListener(new ChangeListener<Number>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+			{			
+				urlText.setPrefWidth(newValue.doubleValue() - 180.0);	
+				predictionLabel.setPrefWidth(newValue.doubleValue() - 430);
+				accuracyLabel.setPrefWidth(newValue.doubleValue() - 430);
+				pBar.setPrefWidth(newValue.doubleValue() - 200);
+				
+				
+			}
+		});
+		
+		
+		stage.setScene(scene);
+		scroll = new ScrollPane();
 		ui = new Pane();
 		setUpUI(ui);
-		root.setCenter(ui);
-		
+		scroll.setContent(ui);
+		scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		root.setCenter(scroll);		
 		MenuBar menuBar = new MenuBar();
 		setUpMenu(menuBar);		
-		root.setTop(menuBar);
-		
+		root.setTop(menuBar);		
 		Pane right = new Pane();
-		root.setRight(right);
-		
+		root.setRight(right);		
 		predict.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event)
 			{
-				String url = urlText.getText();
-				ArffData arffData = new ArffData();
-				try
+				Task<Result> task = new Task<Result>()
 				{
-					URL uri = new URL(url);
-					
-					String domain = uri.getHost();
-					arffData.setUrlSimilarity(DataGatherer.readLevenshtein(domain));
-					
-					boolean redirection = DataGatherer.getRedirectionStatus(url);
-
-					arffData.setRedirection(redirection);
-					Response response = Jsoup.connect(url).execute();
-					arffData.setSpellingErrors(DataGatherer.getSpellingErrors(response).size());
-				}
-				catch (IOException e1)
-				{
-					predictionLabel.setText("The given URL is not valid.");
-					accuracyLabel.setText("");
-					return;
-				}
-					
-				
-
-				Classifier rf;
-				Instances instances;
-				try
-				{
-					rf = (Classifier) SerializationHelper.read("RF100.model");
-					instances = new DataSource("phishingData.arff").getDataSet();
-				}
-				catch (Exception e1)
-				{
-					predictionLabel.setText("There was a problem generating the model.");
-					accuracyLabel.setText("");
-					return;
-				}
-				if (instances.classIndex() == -1)
-					instances.setClassIndex(instances.numAttributes() - 1);
-				String offers = offerText.getValue();
-				String lf = lfText.getValue();
-				
-				Instance inst = InstanceSetup.setUpInstance(arffData, offers, lf, instances);
-			    
-				try
-				{
-					double clsLabel = rf.classifyInstance(inst);
-					if(clsLabel == 0)
+					@Override
+					protected Result call() throws Exception
 					{
-						predictionLabel.setText("the given website IS a phishing website.");
-					}
-					else
+						String url = urlText.getText();
+						ArffData arffData = new ArffData();
+						
+						updateProgress(0.1, 1);
+						updateMessage(progressLabels[1]);
+						URL uri = new URL(url);
+						
+						String domain = uri.getHost();
+						arffData.setUrlSimilarity(DataGatherer.readLevenshtein(domain));
+						updateProgress(0.3, 1);
+						updateMessage(progressLabels[2]);
+						boolean redirection = DataGatherer.getRedirectionStatus(url);
+
+						arffData.setRedirection(redirection);
+						updateProgress(0.5, 1);
+						updateMessage(progressLabels[3]);
+						Response response = Jsoup.connect(url).execute();
+						arffData.setSpellingErrors(DataGatherer.getSpellingErrors(response).size());
+						Classifier rf;
+						Instances instances;
+						
+						updateProgress(0.6, 1);
+						updateMessage(progressLabels[4]);
+						rf = (Classifier) SerializationHelper.read("RF100.model");
+						instances = new DataSource("phishingData.arff").getDataSet();
+				
+						if (instances.classIndex() == -1)
+							instances.setClassIndex(instances.numAttributes() - 1);
+						String offers = offerText.getValue();
+						String lf = lfText.getValue();
+						updateProgress(0.8, 1);
+						updateMessage(progressLabels[5]);
+						Instance inst = InstanceSetup.setUpInstance(arffData, offers, lf, instances);
+					    
+						
+						updateProgress(0.9, 1);
+						updateMessage(progressLabels[6]);
+						double clsLabel = rf.classifyInstance(inst);
+						instances.add(inst); 
+						rf.buildClassifier(instances);
+						SerializationHelper.write("RF100.model", rf);
+						Evaluation eval = new Evaluation(instances);
+						eval.crossValidateModel(rf, instances, 10, new Random(1));
+						boolean phishing = clsLabel ==0 ?true: false;
+						Result result = new Result(phishing, eval.pctCorrect());
+						updateProgress(10, 10);
+						updateMessage(progressLabels[7]);
+						updateValue(result);
+						
+						return result;						
+					}					
+				};
+				
+				pBar.progressProperty().bind(task.progressProperty());
+		        progressLabel.textProperty().bind(task.messageProperty());
+		        
+				task.valueProperty().addListener(new ChangeListener<Result>(){
+
+					@Override
+					public void changed(ObservableValue<? extends Result> observable, Result oldValue, Result newValue)
 					{
-						predictionLabel.setText("the given website IS NOT a phishing website.");
+						// TODO Auto-generated method stub
+						boolean phishing = newValue.isPhishing();
+						if(phishing)
+						{
+							predictionLabel.setText("the given website IS a phishing website.");
+						}
+						else
+						{
+							predictionLabel.setText("the given website IS NOT a phishing website.");
+						}
+						
+						accuracyLabel.setText("PhishGuard is " + String.format("%.4f%%", newValue.getAccuracy()) + 
+								" confident in this prediction.");
+						pBar.progressProperty().unbind();
+						progressLabel.textProperty().unbind();
 					}
-					instances.add(inst); 
-					rf.buildClassifier(instances);
-					SerializationHelper.write("RF100.model", rf);
-					Evaluation eval = new Evaluation(instances);
-					eval.crossValidateModel(rf, instances, 10, new Random(1));
-					accuracyLabel.setText("PhishGuard is " + String.format("%.4f%%", eval.pctCorrect()) + 
-							" confident in this prediction.");
 					
-					 
-				}
-				catch (Exception e)
+				});
+				
+				task.exceptionProperty().addListener(new ChangeListener<Throwable>()
 				{
-					predictionLabel.setText("a prediction could not be made.");
-					accuracyLabel.setText("");
-					return;
-				}
+
+					@Override
+					public void changed(ObservableValue<? extends Throwable> observable, Throwable oldValue,
+							Throwable newValue)
+					{
+						// TODO Auto-generated method stub
+						if(newValue instanceof IOException)
+						{
+							predictionLabel.setText("This URL is not valid.");
+						}
+						else
+						{
+							predictionLabel.setText("A prediction could not be made.");
+						}
+						accuracyLabel.setText("");
+						pBar.progressProperty().unbind();
+						pBar.setProgress(0);
+						progressLabel.textProperty().unbind();
+						progressLabel.setText(progressLabels[0]);
+					}
+				});
+				new Thread(task).start();
 			}});
 		stage.show();
 	}
@@ -323,6 +389,8 @@ public class FYPUI extends javafx.application.Application
 	private void setUpUI(Pane left)
 	{	
 		
+		
+		
 		Label urlLabel = new Label("URL:");
 		urlLabel.setLayoutX(10);
 		urlLabel.setLayoutY(50);
@@ -331,16 +399,34 @@ public class FYPUI extends javafx.application.Application
 		
 		urlText.setLayoutX(150);
 		urlText.setLayoutY(50);
-		urlText.setPrefWidth(600);
+		
 		urlText.setOnKeyPressed(new EventHandler<KeyEvent>()
 		{
-
 			@Override
 			public void handle(KeyEvent event)
 			{
-				// TODO Auto-generated method stub
 				predictionLabel.setText("");
 				accuracyLabel.setText("");
+				pBar.setProgress(0);
+				progressLabel.setText(progressLabels[0]);
+			}
+		});
+		
+		urlText.focusedProperty().addListener(new ChangeListener<Boolean>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
+			{
+				if(!newValue) //if losing focus
+				{
+					String text = urlText.getText();
+					if("".equals(text))
+					{
+						predictionLabel.setText(predictDefault);
+						accuracyLabel.setText(accuracyDefault);
+					}
+				}
+				
 			}
 		});
 		left.getChildren().add(urlText);
@@ -374,14 +460,29 @@ public class FYPUI extends javafx.application.Application
 		
 		predictionLabel.setLayoutX(400);
 		predictionLabel.setLayoutY(200);
+		predictionLabel.setPrefWidth(350);
+		predictionLabel.setWrapText(true);
+		predictionLabel.setText(predictDefault);
 		left.getChildren().add(predictionLabel);
 		
 		
 		accuracyLabel.setLayoutX(400);
 		accuracyLabel.setLayoutY(300);
+		accuracyLabel.setPrefWidth(350);
+		accuracyLabel.setWrapText(true);
+		accuracyLabel.setText(accuracyDefault);
 		left.getChildren().add(accuracyLabel);
 		
+		pBar = new ProgressBar();
+		pBar.setLayoutX(160);
+		pBar.setLayoutY(500);
+		pBar.setProgress(0);
 		
+		left.getChildren().add(pBar);
+		progressLabel.setLayoutX(200);
+		progressLabel.setLayoutY(450);
+		progressLabel.setText(progressLabels[0]);
+		left.getChildren().add(progressLabel);
 	}
 	
 	
