@@ -59,5 +59,13 @@
     <artifactId>weka-stable</artifactId>
     <version>3.8.0</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.prefuse/prefuse -->
+<dependency>
+    <groupId>org.prefuse</groupId>
+    <artifactId>prefuse</artifactId>
+    <version>beta-20071021</version>
+</dependency>
+
+
   </dependencies>
 </project>

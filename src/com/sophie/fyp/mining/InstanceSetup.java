@@ -18,7 +18,7 @@ public class InstanceSetup
 	    inst.setValue(2, arffData.getSpellingErrors());
 	    
 	    
-	    if("?".equals(lf))
+	    if(lf == null || lf.contains("?"))
 	    {
 	    	inst.setMissing(3);
 	    	
@@ -29,7 +29,7 @@ public class InstanceSetup
 	    }
 	    
 	    
-	    if("?".equals(offers))
+	    if(lf == null || lf.contains("?"))
 	    {
 	    	inst.setMissing(4);
 	    }
