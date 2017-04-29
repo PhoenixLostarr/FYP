@@ -19,7 +19,7 @@ import com.sophie.fyp.crawler.FYPRuleMatch;
 
 public class FYPCrawlerTest
 {
-	String url, redirectedURL;
+	String url, redirectedURL, invalidURL;
 	
 	
 	
@@ -28,6 +28,7 @@ public class FYPCrawlerTest
 	{
 		 url = "http://www.ebay.com/";
 		 redirectedURL = "http://goo.gl/7AJgP";
+		 invalidURL = "http://www.buttslol.me";
 	}
 	
 	@Test
@@ -57,6 +58,24 @@ public class FYPCrawlerTest
 		assertTrue(matches.size() > 0);
 	}
 	
+	@Test
+	public void testFailureToConnect()
+	{
+		Exception ex = null;
+		try
+		{
+			//only want to test if the given URL redirects - dont care where to
+			DataGatherer.getRedirectionStatus(invalidURL);
+			
+			
+		}
+		catch (IOException e)
+		{
+			ex = e;
+		}
+		
+		assertFalse(ex == null);
+	}
 	@Test
 	public void testNegativeRedirectionStatus()
 	{

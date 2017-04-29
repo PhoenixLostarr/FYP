@@ -12,7 +12,6 @@ public class ArffData
 	
 	private String lookAndFeel;
 	private String offers;
-	private String phishing;
 	
 	public String getLookAndFeel()
 	{
@@ -29,14 +28,6 @@ public class ArffData
 	public void setOffers(String offers)
 	{
 		this.offers = offers;
-	}
-	public String getPhishing()
-	{
-		return phishing;
-	}
-	public void setPhishing(String phishing)
-	{
-		this.phishing = phishing;
 	}
 	public int getUrlSimilarity()
 	{
@@ -66,7 +57,9 @@ public class ArffData
 	@Override
 	public String toString()
 	{
-		return String.format("%d,%b,%d,%s,%s,%s", urlSimilarity,redirection,spellingErrors,lookAndFeel,offers,phishing);
+		return String.format("urlsimilarity: %d, redirection: "
+				+ "%b,spellingErrors: %d,lookandfeel: %s, offers: %s", 
+				urlSimilarity,redirection,spellingErrors,lookAndFeel,offers);
 	}
 	
 }

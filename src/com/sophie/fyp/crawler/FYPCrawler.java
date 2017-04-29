@@ -1,8 +1,6 @@
 package com.sophie.fyp.crawler;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import edu.uci.ics.crawler4j.crawler.Page;
@@ -18,16 +16,12 @@ public class FYPCrawler extends WebCrawler
 
 	
 	public static ArffData data;
-	private Map<String,Boolean> redirections = new HashMap<>();
+	//private Map<String,Boolean> redirections = new HashMap<>();
 
 	@Override
 	public boolean shouldVisit(Page referringPage, WebURL url)
 	{
-		System.out.println("FYPCrawler.shouldVisit()");
-		if(referringPage.getRedirectedToUrl() != null)
-		{
-			redirections.put(url.getURL(), true);
-		}
+		
 		return true;
 			
 		

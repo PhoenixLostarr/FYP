@@ -21,21 +21,24 @@ public class InstanceSetup
 	    if(lf == null || lf.contains("?"))
 	    {
 	    	inst.setMissing(3);
-	    	
+	    	arffData.setLookAndFeel("?");
 	    }
 	    else
 	    {
 	    	inst.setValue(3, lf);
+	    	arffData.setLookAndFeel(lf);
 	    }
 	    
 	    
-	    if(lf == null || lf.contains("?"))
+	    if(offers == null || offers.contains("?"))
 	    {
 	    	inst.setMissing(4);
+	    	arffData.setOffers("?");
 	    }
 	    else
 	    {
 	    	inst.setValue(4, offers);
+	    	arffData.setOffers(offers);
 	    }		    
 	    
 	    inst.setMissing(5);

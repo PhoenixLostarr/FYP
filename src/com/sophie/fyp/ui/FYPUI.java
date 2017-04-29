@@ -3,6 +3,9 @@
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.net.URL;
+
+import javax.swing.JLabel;
+
 import org.jsoup.Jsoup;
 import org.jsoup.Connection.Response;
 
@@ -55,6 +58,7 @@ public class FYPUI extends javafx.application.Application
 	private ChoiceBox<String> offerText = new ChoiceBox<String>(FXCollections.observableArrayList("Offers Made?", "yes", "no"));
 	private ChoiceBox<String> lfText = new ChoiceBox<String>(FXCollections.observableArrayList("Visual comparison?", "identical", 
 			"veryclose", "similar", "different", "unique"));
+	private ArffData data;
 	private J48 model;
 	private BorderPane root;
 	private ScrollPane scroll;
@@ -198,6 +202,18 @@ public class FYPUI extends javafx.application.Application
 					{
 						// Swallow exception						
 					}
+					String attributes = null;
+					if(data == null)
+					{
+						attributes = "urlsimilarity: ?, redirection: "
+				+ "?,spellingErrors: ?,lookandfeel: ?, offers: ?";
+					}
+					else
+					{
+						attributes = data.toString();
+					}
+					JLabel dataLabel = new JLabel("Last prediction: " +attributes);
+					jf.getContentPane().add(dataLabel, BorderLayout.NORTH);
 				     jf.getContentPane().add(tv, BorderLayout.CENTER);
 				     jf.addWindowListener(new java.awt.event.WindowAdapter() {
 				       public void windowClosing(java.awt.event.WindowEvent e) {
@@ -263,23 +279,30 @@ public class FYPUI extends javafx.application.Application
 					protected Boolean call() throws Exception
 					{
 						String url = urlText.getText();
-						ArffData arffData = new ArffData();
+						if("".equals(url))
+						{
+							throw new IllegalStateException();
+						}
+						
 						
 						updateProgress(0.1, 1);
 						updateMessage(progressLabels[1]);
 						URL uri = new URL(url);
-						
+						if(data == null)
+						{
+							data = new ArffData();
+						}
 						String domain = uri.getHost();
-						arffData.setUrlSimilarity(DataGatherer.readLevenshtein(domain));
+						data.setUrlSimilarity(DataGatherer.readLevenshtein(domain));
 						updateProgress(0.3, 1);
 						updateMessage(progressLabels[2]);
 						boolean redirection = DataGatherer.getRedirectionStatus(url);
 
-						arffData.setRedirection(redirection);
+						data.setRedirection(redirection);
 						updateProgress(0.5, 1);
 						updateMessage(progressLabels[3]);
 						Response response = Jsoup.connect(url).execute();
-						arffData.setSpellingErrors(DataGatherer.getSpellingErrors(response).size());
+						data.setSpellingErrors(DataGatherer.getSpellingErrors(response).size());
 
 						Instances instances = new DataSource("phishingData.arff").getDataSet();
 						
@@ -293,7 +316,7 @@ public class FYPUI extends javafx.application.Application
 						String lf = lfText.getValue();
 						updateProgress(0.8, 1);
 						updateMessage(progressLabels[5]);
-						Instance inst = InstanceSetup.setUpInstance(arffData, offers, lf, instances);
+						Instance inst = InstanceSetup.setUpInstance(data, offers, lf, instances);
 					    
 						
 						updateProgress(0.9, 1);
@@ -342,6 +365,10 @@ public class FYPUI extends javafx.application.Application
 							Throwable newValue)
 					{
 						// TODO Auto-generated method stub
+						if(newValue instanceof IllegalStateException)
+						{
+							predictionLabel.setText("A URL is required.");
+						}
 						if(newValue instanceof IOException)
 						{
 							predictionLabel.setText("This URL is not valid.");
